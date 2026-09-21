@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "app_asar_sha256": "c00470ca0381e136de9fa0ddc785ba55e1f456d1aef8eefecd79be99c3a5727a",
+  "index_js_sha256": "27f3127836968aacbd2eb802473d0673a9001e0d7087937733f0768dc18ed2d1",
+  "modmenu_js_sha256": "f80382333a0aab851917365fa8b7d1f9c79d32b0484e76ab025bad349de20d31",
+  "asar_header_hash": "e0f821c83965fa4e8b5d8b02b10cb50ceea9e393ef076ce019d16cafcb896447",
+  "patched_exe_sha256": "800227b413a46d52c67ed8322ac6545adbd175ddb720e97b447085240de9e3df"
+}
