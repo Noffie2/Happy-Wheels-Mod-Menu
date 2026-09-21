@@ -1,17 +1,5 @@
 Happy Wheels Mod Menu v1.0
 
-INSTALL
-1. Close Happy Wheels.
-2. Run Install Mod.bat.
-3. Launch Happy Wheels normally through Steam.
-4. Load or restart a level.
-5. Press Insert to show/hide the menu.
+Corrective build: fully removes the character-switch experiment and restores the proven v0.8 gameplay/session hook. This fixes the game repeatedly trying to load another character. The menu dragging fix and all other working v1.0 features remain.
 
-VERSION 1.0
-- Fixed menu dragging: releasing the mouse/pointer always stops dragging.
-- Restart lifecycle handling retained.
-- Character switching option removed.
-
-
-Uninstall Mod.bat restores the clean backups.
-
+Run Install Mod.bat with Happy Wheels closed. This installer can repair the previous broken v1.0 build directly.

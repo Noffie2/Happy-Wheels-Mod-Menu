@@ -69,7 +69,7 @@ function Write-AsciiAt([string]$Path,[Int64]$Offset,[string]$Text){
 }
 
 Write-Host ""; Write-Host "Happy Wheels Mod Menu v$Version installer" -ForegroundColor Green
-Write-Host "Version 1.0: character switcher removed; all other working mod features retained. Version number remains 1.0."; Write-Host ""
+Write-Host "Version 1.0: character-switch experiment fully reverted to the proven v0.8 gameplay hook. Version number remains 1.0."; Write-Host ""
 
 Step 1 'Locating game and validating payload'
 $GameDir=Find-GameDirectory $GameDir
@@ -99,7 +99,8 @@ $V07IndexSha256='772b61b2ba7845ef23b27c7d5057b41da177afa0b1396ac410c15b3113b0e92
 $V08IndexSha256='51345defa9abb3c887d84d15fd9181267e89f6a687587ed0d0f98d9be7e138e6'
 $V10OlderIndexSha256='ad266e3654d2436db9e2e28d3c3ac85b08cbed21e0f98db66620b08ec604ffb8'
 $V10PreviousIndexSha256='2480d1d89951a9e5ca27437fd369d0b945496c888e1569a01ab7b5125ca8683c'
-$PatchedIndexSha256='27f3127836968aacbd2eb802473d0673a9001e0d7087937733f0768dc18ed2d1'
+$BrokenCharacterSwitcherIndexSha256='27f3127836968aacbd2eb802473d0673a9001e0d7087937733f0768dc18ed2d1'
+$PatchedIndexSha256='51345defa9abb3c887d84d15fd9181267e89f6a687587ed0d0f98d9be7e138e6'
 if(-not(Test-Path -LiteralPath $PayloadIndex)){throw 'Missing payload\index.js.'}
 if((Hash $PayloadIndex) -ne $PatchedIndexSha256){throw 'Decoded gameplay payload integrity check failed.'}
 $indexHash=Hash $Index
@@ -108,7 +109,8 @@ $upgradeV10Previous=($indexHash -eq $V10PreviousIndexSha256)
 $upgradeV10Older=($indexHash -eq $V10OlderIndexSha256)
 $upgradeV08=($indexHash -eq $V08IndexSha256)
 $upgradeV07=($indexHash -eq $V07IndexSha256)
-if(-not $alreadyHooked -and -not $upgradeV10Previous -and -not $upgradeV10Older -and -not $upgradeV08 -and -not $upgradeV07 -and $indexHash -ne $OriginalIndexSha256){throw "Unexpected resources\webroot\js\index.js hash: $indexHash. Nothing was changed."}
+$upgradeBrokenSwitcher=($indexHash -eq $BrokenCharacterSwitcherIndexSha256)
+if(-not $alreadyHooked -and -not $upgradeV10Previous -and -not $upgradeV10Older -and -not $upgradeV08 -and -not $upgradeV07 -and -not $upgradeBrokenSwitcher -and $indexHash -ne $OriginalIndexSha256){throw "Unexpected resources\webroot\js\index.js hash: $indexHash. Nothing was changed."}
 Write-Host "  Installed index.js: $indexHash"
 Write-Host '  Exact obfuscated build recognized.' -ForegroundColor Green
 
@@ -123,7 +125,7 @@ if(-not(Test-Path -LiteralPath $BackupAsar)){
     [IO.File]::Copy($Asar,$BackupAsar,$false)
 } else { Write-Host '  Existing clean ASAR backup found.' }
 if(-not(Test-Path -LiteralPath $BackupIndex)){
-    if($alreadyHooked -or $upgradeV10Previous -or $upgradeV10Older -or $upgradeV08 -or $upgradeV07){throw 'index.js is already modified and no clean index.js backup exists.'}
+    if($alreadyHooked -or $upgradeV10Previous -or $upgradeV10Older -or $upgradeV08 -or $upgradeV07 -or $upgradeBrokenSwitcher){throw 'index.js is already modified and no clean index.js backup exists.'}
     [IO.File]::Copy($Index,$BackupIndex,$false)
 } else { Write-Host '  Existing clean index.js backup found.' }
 
