@@ -5,5 +5,5 @@
   "modmenu_js_sha256": "f80382333a0aab851917365fa8b7d1f9c79d32b0484e76ab025bad349de20d31",
   "asar_header_hash": "e0f821c83965fa4e8b5d8b02b10cb50ceea9e393ef076ce019d16cafcb896447",
   "patched_exe_sha256": "800227b413a46d52c67ed8322ac6545adbd175ddb720e97b447085240de9e3df",
-  "notes": "Character switching fully removed. Gameplay hook reverted to proven v0.8 generation-aware capture to stop forced character loading."
+  "notes": ""
 }
